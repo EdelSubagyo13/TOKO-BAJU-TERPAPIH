@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Form Pembelian</title>
+  <style>
+    :root{--accent:#D2691E;--muted:#666;--bg:#FFF7E6}
+    body{font-family:Inter,system-ui,Segoe UI,Arial;line-height:1.4;margin:0;background:var(--bg);color:#111}
+    .container{max-width:720px;margin:40px auto;padding:20px;background:#ffffff;border-radius:8px;box-shadow:0 6px 20px rgba(10,10,10,0.06)}
+    h1{margin:0 0 8px;font-size:1.4rem}
+    p.lead{color:var(--muted);margin-top:0;margin-bottom:18px}
+    form{display:grid;gap:12px}
+    label{font-size:.9rem;color:#222}
+    input[type="text"],input[type="email"],input[type="tel"],textarea,select{width:100%;padding:10px;border:1px solid #d8dde6;border-radius:6px;font-size:.95rem}
+    input[readonly]{background:#EAD7B0  }
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:flex;gap:8px;justify-content:flex-end;align-items:center;margin-top:6px}
+    button.primary{background:var(--accent);color:#fff;padding:10px 14px;border:0;border-radius:6px;cursor:pointer}
+    button.secondary{background:#eef2f7;border:0;padding:10px 14px;border-radius:6px;cursor:pointer}
+    small.muted{color:var(--muted);display:block;margin-top:6px}
+    .summary{background:#f8fbff;padding:12px;border-radius:6px;border:1px solid #e6f0ff}
+    .error{color:#b00020;font-size:.9rem}
+    .hidden{display:none}
+    * { box-sizing: border-box; }
+    form { max-width: 720px; margin: 24px auto; font-family: system-ui, Arial, sans-serif; }
+    .row {
+      display: fixed;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .row label {
+      flex: 0 0 120px;
+      min-width: 0;
+      font-weight: 600;
+    }
+    .field { flex: 1 1 200px; min-width: 0; }
+    .field input[type="tel"] {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    @media (max-width: 520px) {
+      .row label { flex: 0 0 100%; }
+      .field { flex: 0 0 100%; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container" aria-live="polite">
+    <h1>Form Pembelian</h1>
+    <p class="lead">Isi data di bawah untuk melanjutkan pesanan. Pastikan data kontak dan alamat benar.</p>
+
+    <form id="orderForm" class="form-no-drag" ondragstart="return false;" novalidate>
+      <fieldset>
+        <legend><strong>Detail Pembeli</strong></legend>
+        <div class="row">
+          <div>
+            <label for="fullname">Nama Lengkap</label>
+            <input id="fullname" name="fullname" type="text" required minlength="3" />
+            <div class="error" id="err-fullname" aria-hidden="true"></div>
+          </div>
+          <div>
+            <label for="phone">No. Telepon</label>
+            <input id="phone" name="phone" type="tel" pattern="^\+?\d{7,15}$" placeholder="+6281234567890" required />
+            <div class="error" id="err-phone" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+        <div class="error" id="err-email" aria-hidden="true"></div>
+
+       <label for="address">Alamat Pengiriman</label>
+<textarea id="address" name="address" rows="3" required minlength="5"
+          style="width:100%;padding:8px;border:1px solid #ccc;border-radius:6px;"></textarea>
+<div class="error" id="err-address" aria-hidden="true"></div>
+</fieldset>
+
+      <fieldset>
+        <legend><strong>Detail Produk</strong></legend>
+        <label for="product">Produk</label>
+        <select id="product" name="product" required>
+          <option value="">-- Pilih produk --</option>
+          <option value="KAOS POLOS-ED01" data-price="120000">Kaos Polos - IDR 75.000</option>
+          <option value="KEMEJA-ED02" data-price="180000">Kemeja Edel - IDR 125.000</option>
+          <option value="HOODIE" data-price="320000">Hoodie - IDR 185.000</option>
+          <option value="CELANA CHINOS-ED03" data-price="320000">Celana Chinos - IDR 150.000</option>
+        </select>
+
+        <div class="row">
+          <div>
+            <label for="quantity">Jumlah</label>
+            <input id="quantity" name="quantity" type="number" min="1" value="1" required />
+          </div>
+          <div>
+            <label for="size">Ukuran</label>
+            <select id="size" name="size" required>
+              <option value="">-- Ukuran --</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><strong>Pembayaran & Ringkasan</strong></legend>
+        <label>Metode Pembayaran</label>
+        <select id="payment" name="payment" required>
+          <option value="">-- Pilih metode --</option>
+          <option value="bank_transfer">Bank Transfer</option>
+          <option value="cod">COD</option>
+          <option value="ewallet">E-Wallet</option>
+        </select>
+
+        <div class="summary" id="orderSummary" aria-live="polite">
+          <strong>Ringkasan</strong>
+          <div id="summaryContent">Belum ada produk yang dipilih.</div>
+        </div>
+
+        <label style="display:block;margin-top:8px">
+          <input id="agree" name="agree" type="checkbox" required /> Saya setuju dengan syarat dan ketentuan
+        </label>
+      </fieldset>
+
+      <div class="actions">
+        <button type="button" class="secondary" id="btnCancel">Batal</button>
+        <button type="submit" class="primary" id="btnSubmit">Kirim Pesanan</button>
+      </div>
+
+      <div id="formMessage" class="hidden" role="status"></div>
+    </form>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('orderForm');
+      const productSelect = document.getElementById('product');
+      const qty = document.getElementById('quantity');
+      const summary = document.getElementById('summaryContent');
+      const msg = document.getElementById('formMessage');
+      const btnCancel = document.getElementById('btnCancel');
+
+      function formatIDR(n){
+        return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR'}).format(n);
+      }
+
+      function updateSummary(){
+        const prodOpt = productSelect.selectedOptions[0];
+        if(!prodOpt || !prodOpt.value){
+          summary.textContent = 'Belum ada produk yang dipilih.';
+          return;
+        }
+        const price = Number(prodOpt.dataset.price || 0);
+        const quantity = Math.max(1, Number(qty.value) || 1);
+        const subtotal = price * quantity;
+        summary.innerHTML = [
+          `Produk: ${prodOpt.text}`,
+          `Jumlah: ${quantity}`,
+          `Harga satuan: ${formatIDR(price)}`,
+          `<strong>Subtotal: ${formatIDR(subtotal)}</strong>`
+        ].join(' • ');
+      }
+
+      productSelect.addEventListener('change', updateSummary);
+      qty.addEventListener('input', updateSummary);
+      updateSummary();
+
+      // Simple inline validation messages
+      const fields = [
+        {id:'fullname', msgId:'err-fullname', check: el => el.value.trim().length>=3 ? '' : 'Isi nama minimal 3 karakter'},
+        {id:'phone', msgId:'err-phone', check: el => /^\+?\d{7,15}$/.test(el.value) ? '' : 'Masukkan nomor telepon yang valid (angka, 7–15 digit)'},
+        {id:'email', msgId:'err-email', check: el => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value) ? '' : 'Alamat email tidak valid'},
+        {id:'address', msgId:'err-address', check: el => el.value.trim().length>5 ? '' : 'Masukkan alamat lengkap'},
+      ];
+
+      fields.forEach(f=>{
+        const el = document.getElementById(f.id);
+        const err = document.getElementById(f.msgId);
+        el.addEventListener('input', ()=> {
+          const e = f.check(el);
+          err.textContent = e;
+          err.setAttribute('aria-hidden', e ? 'false' : 'true');
+        });
+      });
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        // run checks
+        let valid = true;
+        fields.forEach(f=>{
+          const el = document.getElementById(f.id);
+          const err = document.getElementById(f.msgId);
+          const msgText = f.check(el);
+          err.textContent = msgText;
+          err.setAttribute('aria-hidden', msgText ? 'false' : 'true');
+          if(msgText) valid = false;
+        });
+        if(!productSelect.value){ valid = false; alert('Pilih produk terlebih dahulu.'); productSelect.focus(); return; }
+        if(!form.agree.checked){ valid = false; alert('Setujui syarat dan ketentuan.'); return; }
+
+        if(!valid) return;
+
+        // Prepare payload
+        const payload = {
+          fullname: form.fullname.value.trim(),
+          phone: form.phone.value.trim(),
+          email: form.email.value.trim(),
+          address: form.address.value.trim(),
+          product: productSelect.value,
+          productLabel: productSelect.selectedOptions[0].text,
+          quantity: Number(qty.value),
+          size: form.size.value,
+          payment: form.payment.value,
+          createdAt: new Date().toISOString()
+        };
+
+        // Show loading state
+        const submitBtn = document.getElementById('btnSubmit');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Mengirim...';
+
+        // SIMULASI 
+        new Promise((resolve) => {
+          setTimeout(() => {
+            const orderId = 'MOCK-' + Math.random().toString(36).substring(2,9).toUpperCase();
+            resolve({ ok: true, json: () => Promise.resolve({ orderId }) });
+          }, 700);
+        })
+        .then(resp => {
+          if(!resp.ok) throw new Error('Server menolak permintaan');
+          return resp.json();
+        })
+        .then(data => {
+          msg.className = '';
+          msg.textContent = 'Pesanan berhasil dikirim. Terima kasih! Nomor pesanan: ' + (data.orderId || '—');
+          msg.style.color = 'green';
+          msg.classList.remove('hidden');
+          form.reset();
+          updateSummary();
+        })
+        .catch(err => {
+          msg.className = '';
+          msg.textContent = 'Gagal mengirim pesanan. Coba lagi nanti.';
+          msg.style.color = '#b00020';
+          msg.classList.remove('hidden');
+        })
+        .finally(()=> {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Kirim Pesanan';
+        });
+      });
+
+      btnCancel.addEventListener('click', ()=>{
+        if(confirm('Batalkan dan kembali ke halaman sebelumnya?')) window.history.back();
+      });
+    })();
+  </script>
+</body>
+</html>

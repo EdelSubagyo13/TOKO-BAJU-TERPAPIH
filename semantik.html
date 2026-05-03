@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contoh Semantik HTML</title>
+  <style>
+    :root{
+      --cokelat-utama: #7B4B3A;   /* cokelat tua */
+      --cokelat-terang: #A67C52; /* cokelat terang untuk aksen */
+      --pink-utama: #E89DB3;     /* pink lembut */
+      --pink-kontras: #F7C7D3;   /* pink latar */
+      --putih: #ffffff;
+      --abu: #f4f1ef;
+    }
+
+    /* Reset sederhana */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--pink-kontras),var(--abu));
+      color: var(--cokelat-utama);
+      line-height:1.5;
+      padding:24px;
+    }
+
+    header{
+      background: linear-gradient(90deg,var(--cokelat-utama),var(--cokelat-terang));
+      color:var(--putih);
+      padding:18px;
+      border-radius:8px;
+      margin-bottom:18px;
+    }
+
+    header h1{font-size:1.6rem;margin-bottom:6px}
+    header p{opacity:0.95}
+
+    nav[aria-label] ul{
+      display:flex;
+      gap:12px;
+      list-style:none;
+      margin:12px 0 20px 0;
+      flex-wrap:wrap;
+    }
+    nav a{
+      text-decoration:none;
+      padding:8px 12px;
+      background:var(--pink-utama);
+      color:var(--cokelat-utama);
+      border-radius:6px;
+      font-weight:600;
+    }
+    nav a:hover{filter:brightness(0.96)}
+
+    main{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      max-width:900px;
+      margin:0 auto 20px auto;
+    }
+
+    section{
+      background:var(--putih);
+      border-left:6px solid var(--cokelat-utama);
+      padding:14px;
+      border-radius:8px;
+    }
+    section h2{color:var(--cokelat-utama); margin-bottom:8px}
+
+    article{
+      background:linear-gradient(180deg,var(--pink-kontras),#fff);
+      padding:12px;
+      border-radius:6px;
+      margin-bottom:10px;
+      border:1px solid rgba(123,75,58,0.06);
+    }
+    article h3{margin-bottom:6px;color:var(--cokelat-utama)}
+
+    figure{
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:flex-start;
+    }
+    figure img{max-width:100%;height:auto;border-radius:6px;border:1px solid rgba(0,0,0,0.06)}
+    figcaption{font-size:0.95rem;color:var(--cokelat-utama)}
+
+    details{
+      background:var(--pink-kontras);
+      padding:10px;
+      border-radius:6px;
+      margin-bottom:8px;
+      border:1px solid rgba(123,75,58,0.06);
+    }
+    summary{cursor:pointer;font-weight:600;color:var(--cokelat-utama)}
+
+    footer{
+      text-align:center;
+      color:var(--putih);
+      background:var(--cokelat-utama);
+      padding:14px;
+      border-radius:8px;
+      margin-top:18px;
+    }
+    footer nav ul{justify-content:center;display:flex;gap:12px;list-style:none;margin-top:8px}
+    footer a{color:var(--pink-kontras);text-decoration:none;font-weight:600}
+
+    /* Responsif kecil */
+    @media (min-width:700px){
+      main{grid-template-columns: 1fr 320px}
+      nav[aria-label] ul{gap:10px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panduan Singkat Semantik HTML</h1>
+    <p>Contoh penggunaan tag semantik.</p>
+  </header>
+
+  <nav aria-label="Navigasi utama">
+    <ul>
+      <li><a href="#intro">Beranda</a></li>
+      <li><a href="#berita">Berita</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">Pengantar</h2>
+      <p><p style="text-align: justify; text-justify: inter-word; hyphens: auto;">
+ Tag semantik HTML adalah fondasi untuk membuat dokumen web yang terstruktur, mudah diakses, dan mudah dipahami oleh manusia maupun mesin. Dengan menggunakan elemen-elemen semantik secara tepat, pengembang memberi arti pada setiap bagian konten bukan sekadar tampilan sehingga mesin pencari, pembaca layar, alat analitik, dan tim pengembang dapat menafsirkan tujuan setiap blok konten dengan lebih akurat. Kata pengantar singkat ini ditujukan untuk memberikan pemahaman menyeluruh tentang apa itu tag semantik, mengapa penting, dan bagaimana menggunakannya secara praktis dalam proyek web.</p>
+    </section>
+
+    <section id="berita" aria-labelledby="berita-title">
+      <h2 id="berita-title">Berita Terbaru</h2>
+
+      <article aria-labelledby="art1-title">
+        <h3 id="art1-title">Peluncuran Fitur Baru</h3>
+        <p>Tim merilis fitur baru yang meningkatkan pengalaman pengguna pada situs contoh ini.</p>
+        <footer>
+          <p>Dipublikasikan 5 November 2025 · Penulis: Edel</p>
+        </footer>
+      </article>
+
+      <article aria-labelledby="art2-title">
+        <h3 id="art2-title">Tips Menulis HTML Semantik</h3>
+        <p>Gunakan tag semantik untuk memberi makna dan meningkatkan aksesibilitas.</p>
+        <footer>
+          <p>Dipublikasikan 1 November 2025 · Penulis: Edel</p>
+        </footer>
+      </article>
+
+      <section id="galeri" aria-labelledby="galeri-title" style="margin-top:10px">
+        <h2 id="galeri-title">Galeri Contoh</h2>
+        <figure>
+          <img src="Semantic-Web-Explained.png" alt="Contoh gambar semantik" width="640" height="360" />
+          <figcaption>Gambar ilustrasi: struktur semantik sederhana</figcaption>
+        </figure>
+      </section>
+
+      <section aria-labelledby="faq-title" style="margin-top:12px">
+        <h2 id="faq-title">Pertanyaan Umum</h2>
+
+        <details>
+          <summary>Apa bedanya &lt;section&gt; dan &lt;article&gt;?</summary>
+          <p>&lt;article&gt; mewakili konten yang berdiri sendiri. &lt;section&gt; adalah pengelompokan tematik yang bisa berisi beberapa artikel.</p>
+        </details>
+
+        <details>
+          <summary>Kapan menggunakan &lt;figure&gt; dan &lt;figcaption&gt;?</summary>
+          <p>Gunakan &lt;figure&gt; untuk media relevan dan &lt;figcaption&gt; untuk keterangan media tersebut.</p>
+        </details>
+      </section>
+
+      <section id="kontak" aria-labelledby="kontak-title" style="margin-top:12px">
+        <h2 id="kontak-title">Kontak</h2>
+        <p>Untuk pertanyaan, kirim email ke <a href="mailto:edelsubagyo11@gmail.com">edelsubagyo11@gamil.com</a>.</p>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p> 2025 Contoh Semantik HTML</p>
+    <nav aria-label="Tautan footer">
+      <ul>
+        <li><a href="#intro">Tentang</a></li>
+        <li><a href="#kontak">Hubungi</a></li>
+        <li><a href="#berita">Arsip</a></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html>
